@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -12,6 +11,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float verticalForce;
 
     public bool isGrounded;
+
+    public Transform spawnPoint;
 
     private Rigidbody2D rigidBody2D;
     private SpriteRenderer spriteRenderer;
@@ -71,5 +72,12 @@ public class PlayerBehaviour : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         isGrounded = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // respawn
+        if(collision.CompareTag("DeathPlane"))
+            transform.position = spawnPoint.position;
     }
 }
